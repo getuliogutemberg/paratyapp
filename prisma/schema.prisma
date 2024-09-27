@@ -1,0 +1,125 @@
+// Definindo a fonte de dados (PostgreSQL)
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+
+// Gerador do cliente Prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Modelo de Usuário
+model User {
+  id          Int       @id @default(autoincrement())
+  name        String
+  email       String    @unique
+  password    String
+  role        Role      @default(BASIC) // Definindo o nível do usuário
+  groupId     Int?      // Referência para o grupo do usuário
+  group       Group?    @relation(fields: [groupId], references: [id]) // Relacionamento com o Grupo
+  logs        Log[]     // Relacionamento com os logs gerados
+  dashboards  Dashboard[] // Relacionamento com os dashboards criados pelo usuário
+  pages       Page[]    // Relacionamento com as páginas criadas pelo usuário (a correção necessária)
+  createdAt   DateTime  @default(now())
+}
+
+// Níveis de Permissão
+enum Role {
+  BASIC  // Nível 0 - Acesso básico (Dashboards e Dados Históricos)
+  ADMIN  // Nível 1 - Customização do grupo (gráficos, criação de usuários no grupo)
+  SUPERADMIN  // Nível 2 - Customização avançada (edição de usuários, sensores, gráficos, telas)
+}
+
+// Grupos de usuários
+model Group {
+  id        Int      @id @default(autoincrement())
+  name      String
+  users     User[]   // Relacionamento com os usuários do grupo
+  dashboards Dashboard[] // Dashboards relacionados ao grupo
+  sensors   Sensor[] // Sensores relacionados ao grupo
+  createdAt DateTime @default(now())
+}
+
+// Modelo de Dashboard (Gráficos)
+model Dashboard {
+  id          Int        @id @default(autoincrement())
+  name        String
+  groupId     Int        // Referência ao grupo do dashboard
+  group       Group      @relation(fields: [groupId], references: [id])
+  charts      Chart[]    // Gráficos associados ao dashboard
+  createdBy   Int        // Criado por qual usuário
+  createdByUser User     @relation(fields: [createdBy], references: [id]) // Relacionamento com o usuário que criou
+  createdAt   DateTime   @default(now())
+}
+
+// Modelo de Gráfico
+model Chart {
+  id          Int       @id @default(autoincrement())
+  type        String    // Tipo de gráfico (linha, barra, pizza, etc.)
+  dataSource  String    // Fonte de dados do gráfico (ex: API externa ou banco de dados interno)
+  dashboardId Int       // Referência para o Dashboard
+  dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
+  createdAt   DateTime  @default(now())
+}
+
+// Modelo de Sensor
+model Sensor {
+  id          Int       @id @default(autoincrement())
+  name        String
+  type        String    // Tipo de sensor (ex: temperatura, umidade, pressão)
+  groupId     Int       // Referência ao grupo do sensor
+  group       Group     @relation(fields: [groupId], references: [id])
+  data        SensorData[] // Relacionamento com os dados coletados pelo sensor
+  createdAt   DateTime  @default(now())
+}
+
+// Dados de sensores
+model SensorData {
+  id        Int       @id @default(autoincrement())
+  value     Float     // Valor coletado pelo sensor
+  timestamp DateTime  @default(now()) // Data e hora da coleta
+  sensorId  Int       // Referência ao sensor
+  sensor    Sensor    @relation(fields: [sensorId], references: [id])
+}
+
+// Modelo de Página (adicionando o campo de relação)
+model Page {
+  id          Int       @id @default(autoincrement())
+  name        String    // Nome da página (ex: "Configurações", "Analytics")
+  content     String    // Conteúdo ou estrutura da página em formato JSON ou HTML
+  route       String    // Rota da página (ex: "/configuracoes")
+  icon        String    // Ícone da página
+  permission  Role      // Nível de permissão para acessar a página
+  platformId  Int       // Referência à plataforma
+  platform    Platform  @relation(fields: [platformId], references: [id]) // Relação com a plataforma
+  createdBy   Int       // Criado por qual usuário
+  createdByUser User    @relation(fields: [createdBy], references: [id]) // Relacionamento com o usuário que criou
+  createdAt   DateTime  @default(now())
+}
+
+// Modelo de Log (Ações da plataforma)
+model Log {
+  id        Int       @id @default(autoincrement())
+  action    String    // Ação realizada (ex: "Login", "Criação de gráfico", "Edição de usuário")
+  details   String?   // Detalhes adicionais da ação
+  userId    Int       // ID do usuário que realizou a ação
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(now())
+}
+
+// Modelo da Plataforma
+model Platform {
+  id        Int     @id @default(autoincrement())
+  logo      String  // Logo da plataforma em base64 ou URL
+  CssInit   String  // estilização inicial
+  TitleInit String  // Titulo inicial
+  Subtitle  String  // Subtitulo de fundo
+  LogoInit  String  // Imagem inicial
+  Background String // Imagem de fundo
+  name      String  // Nome da plataforma
+  pages     Page[]  // Páginas disponíveis
+  createdAt DateTime @default(now())
+}
