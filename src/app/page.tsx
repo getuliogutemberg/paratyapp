@@ -65,7 +65,7 @@ export default function Home() {
     };
 
     fetchPlatformData();
-  }, []);
+  }, [router]);
 
   const handleThemeChange = () => {
     localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
