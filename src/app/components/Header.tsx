@@ -74,7 +74,7 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string }> = (
   };
 
   return (
-    <header className={`${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'} flex items-center justify-between p-4 bg-gray-800 absolute top-0 left-0 right-0`}>
+    <header className={`${theme === 'dark' ? 'bg-[#00669d] text-white' : 'bg-black text-white'} flex items-center justify-between p-4 bg-gray-800 absolute top-0 left-0 right-0`}>
       <Link href="/" className="flex items-center">
         {platform ? (
           <>
@@ -83,7 +83,11 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string }> = (
             <h1 className="text-xl font-bold ml-2">{platform.name}</h1>
           </>
         ) : (
-          <h1 className="text-xl font-bold">App</h1>
+          <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <div className="object-contain w-9 h-9 m-0 p-0 bg-gray-500" />
+          <h1 className="text-xl font-bold ml-2">Carregando...</h1>
+        </>
         )}
       </Link>
 
@@ -96,22 +100,22 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string }> = (
         </button>
 
         {isDropdownOpen && (
-          <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg">
+          <div className={`absolute right-0 mt-2 w-48 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}   rounded shadow-lg`}>
             <ul className="py-1" onClick={toggleDropdown} onMouseLeave={toggleDropdown}>
               <li>
-                <button onClick={handleThemeChange} className="block px-4 py-2 hover:bg-gray-200 w-full text-left">
+                <button onClick={handleThemeChange} className="block px-4 py-2 hover:bg-gray-200 w-full text-left dark:hover:text-black">
                   Trocar Tema
                 </button>
               </li>
               <li>
                 <Link href="/dashboard">
-                  <button className="block px-4 py-2 hover:bg-gray-200 w-full text-left">
+                  <button className="block px-4 py-2 hover:bg-gray-200 w-full text-left dark:hover:text-black">
                     Dashboard
                   </button>
                 </Link>
               </li>
               <li>
-                <button onClick={handleLogout} className="block px-4 py-2 hover:bg-gray-200 w-full text-left">
+                <button onClick={handleLogout} className="block px-4 py-2 hover:bg-red-500 hover:text-white w-full text-left">
                   Sair
                 </button>
               </li>

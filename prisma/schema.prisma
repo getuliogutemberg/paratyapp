@@ -114,11 +114,11 @@ model Log {
 model Platform {
   id        Int     @id @default(autoincrement())
   logo      String  // Logo da plataforma em base64 ou URL
-  CssInit   String  // estilização inicial
-  TitleInit String  // Titulo inicial
-  Subtitle  String  // Subtitulo de fundo
-  LogoInit  String  // Imagem inicial
-  Background String // Imagem de fundo
+  Background   String? @default("")
+  CssInit      String? @default("")
+  LogoInit     String? @default("")
+  Subtitle     String? @default("")
+  TitleInit    String? @default("")
   name      String  // Nome da plataforma
   pages     Page[]  // Páginas disponíveis
   createdAt DateTime @default(now())
