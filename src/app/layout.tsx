@@ -10,8 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Metadata } from 'next';
 // Adicionando metadados
 export const metadata: Metadata = {
-  title: "Getulio's App",
-  description: "Getulio's App",
+  title: "Paraty App",
+  description: "Paraty App",
   icons: {
     icon: "./favicon.ico",
   },
