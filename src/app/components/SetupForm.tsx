@@ -2,8 +2,12 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
+interface FormData {
+  exampleField: string; // Defina outros campos aqui, se necessário
+}
+
 const SetupForm: React.FC = () => {
-  const [formData, setFormData] = useState<{ [key: string]: any }>({});
+  const [formData, setFormData] = useState<FormData>({ exampleField: '' });
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,6 +45,7 @@ const SetupForm: React.FC = () => {
       <input
         type="text"
         name="exampleField"
+        value={formData.exampleField} // Adicionando value para controle do componente
         onChange={handleChange}
         placeholder="Campo Exemplo"
         required
