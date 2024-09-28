@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 import { ClipLoader } from 'react-spinners';
 
+
 export default function Home() {
   const [user, setUser] = useState<{ name: string }>({ name: '' });
   const [theme, setTheme] = useState<string>('dark');
@@ -46,9 +47,10 @@ export default function Home() {
     localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
-
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL; // Acessar a variável pública
   return (
     <div className={`grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
+      <p className="text-3xl font-bold">{apiUrl}</p>
       <>
         <main className={user && user.name !== '' ? "flex justify-space-between flex-row w-full gap-8 row-start-2 sm:row-start-1 items-center" : "flex flex-col gap-8 row-start-2 items-center sm:items-start "}>
           {loading ? (
