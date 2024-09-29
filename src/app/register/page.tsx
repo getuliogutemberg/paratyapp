@@ -4,21 +4,38 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Importando o CSS do Toastify
+import axios from 'axios';
+import { ClipLoader } from 'react-spinners';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [theme, setTheme] = useState<string>('dark');
+  const [platformData, setPlatformData] = useState<{ Background: string } | null>(null);
   const router = useRouter();
 
-  
+  // Fetch platform data for the background image
+  useEffect(() => {
+    const fetchPlatformData = async () => {
+      try {
+        const response = await axios.get('/api/platform'); // Adjust the endpoint if needed
+        setPlatformData(response.data);
+      } catch (error) {
+        console.error('Erro ao obter dados da plataforma:', error);
+      }
+    };
+
+    fetchPlatformData();
+  }, []);
+
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme) {
       setTheme(storedTheme);
     }
   }, []);
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -43,8 +60,14 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className={`flex flex-col items-center justify-center min-h-screen p-8 gap-8 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
-      <h1 className="text-3xl font-bold">Registro</h1>
+    <div className={`flex flex-col items-center justify-center min-h-screen p-8 gap-8 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}
+    style={{
+      backgroundImage: platformData ? `url(${platformData.Background})` : 'none',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }}>
+     { platformData ? <><h1 className="text-3xl font-bold">Registro</h1>
       <form onSubmit={handleRegister} className="flex flex-col gap-4 w-full max-w-md">
         <input
           type="text"
@@ -52,7 +75,7 @@ export default function RegisterPage() {
           onChange={(e) => setName(e.target.value)}
           placeholder="Nome"
           required
-          className="border border-gray-300 p-2 rounded  dark:text-black"
+          className="border border-gray-300 p-2 rounded dark:text-black"
         />
         <input
           type="email"
@@ -60,7 +83,7 @@ export default function RegisterPage() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
           required
-          className="border border-gray-300 p-2 rounded  dark:text-black"
+          className="border border-gray-300 p-2 rounded dark:text-black"
         />
         <input
           type="password"
@@ -68,7 +91,7 @@ export default function RegisterPage() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Senha"
           required
-          className="border border-gray-300 p-2 rounded  dark:text-black"
+          className="border border-gray-300 p-2 rounded dark:text-black"
         />
         <button type="submit" className="rounded-full border border-transparent bg-foreground text-background h-10 px-4 hover:bg-[#f2f2f2] hover:text-white dark:hover:bg-[#1a1a1a] text-sm sm:text-base">
           Registrar
@@ -90,6 +113,11 @@ export default function RegisterPage() {
       </div>
 
       <ToastContainer /> {/* Componente do ToastContainer para exibir notificações */}
+      </> : 
+      <div className="flex justify-center items-center">
+      <ClipLoader size={50} color={theme === 'dark' ? '#fff' : '#000'} loading={!platformData} />
+    </div>
+      }
     </div>
   );
 }

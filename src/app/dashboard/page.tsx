@@ -5,6 +5,7 @@ import axios from 'axios';
 import Header from '../components/Header';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,PieChart, Pie, Cell  } from 'recharts';
 import { ClipLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 
 // Definindo a interface para os dados do gráfico
 interface ChartData {
@@ -113,9 +114,11 @@ export default function DashboardPage() {
   const colors = ['#00C49F', '#E0E0E0']; // Cores: preenchido e vazio
 
   
-  return (<div  className={` ${dashboardClass} flex flex-col justify-start items-start min-h-screen p-4`}>
+  return (
+  <>
     <Header setTheme={setTheme} theme={theme}/>
-    <h1 className={`text-3xl font-bold pt-[100px] text-start`}>Bem-vindo, {user.name}</h1>
+  <div onClick={() => toast.warn('Em desenvolvimento ...', { position: 'top-center', theme: theme === 'dark' ? 'dark' : 'light' })}  className={` ${dashboardClass} absolute w-screen h-screen z-[-1] px-4`}>
+    <h1 className={`text-3xl font-bold pt-20 text-start`}>Bem-vindo, {user.name}</h1>
     <div >
       <p className="text-md mb-4">Este é o seu dashboard.</p>
       <div className="flex flex-row flex-wrap justify-center gap-4">
@@ -223,6 +226,7 @@ export default function DashboardPage() {
     </div>
    
     </div></div>
+    </>
   );
 }
 

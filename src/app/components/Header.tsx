@@ -4,6 +4,7 @@ import {  useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 const Header: React.FC<{ setTheme: (theme: string) => void; theme: string }> = ({ setTheme, theme }) => {
@@ -21,6 +22,11 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string }> = (
   }, [setTheme]);
 
   const handleLogout = () => {
+    toast.info('Deslogando...', {
+      position: 'top-right',
+      theme: theme === 'dark' ? 'dark' : 'light',
+      autoClose: 3000,
+    });
     localStorage.removeItem('token');
     router.push('/login');
   };
@@ -69,8 +75,14 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string }> = (
   }, []);
 
   const handleThemeChange = () => {
-    localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
+    localStorage.setItem('theme', theme === 'dark' ? 'light' : 'dark');
     setTheme(theme === 'dark' ? 'light' : 'dark');
+    toast.info('Tema alterado para' + ' ' +  (theme === 'dark' ? 'light' : 'dark'), {
+      position: 'top-right',
+      theme: theme === 'dark' ? 'light' : 'dark',
+      autoClose: 3000,
+    });
+    
   };
 
   return (
@@ -109,7 +121,7 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string }> = (
               </li>
               <li>
                 <Link href="/dashboard">
-                  <button className="block px-4 py-2 hover:bg-gray-200 w-full text-left dark:hover:text-black">
+                  <button onClick={() => toast.warn('Em desenvolvimento ...', { position: 'top-center',theme: theme === 'dark' ? 'dark' : 'light' })}  className="block px-4 py-2 hover:bg-gray-200 w-full text-left dark:hover:text-black">
                     Dashboard
                   </button>
                 </Link>

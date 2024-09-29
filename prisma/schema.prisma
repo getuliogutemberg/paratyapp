@@ -121,5 +121,8 @@ model Platform {
   TitleInit    String? @default("")
   name      String  // Nome da plataforma
   pages     Page[]  // Páginas disponíveis
+  primaryColor   String?  @default("#e60000") // Definindo a cor padrão
+  secondaryColor String? @default("#e60000") // Definindo a cor padrão
   createdAt DateTime @default(now())
+
 }
