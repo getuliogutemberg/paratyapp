@@ -23,7 +23,7 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string }> = (
 
   const handleLogout = () => {
     toast.info('Deslogando...', {
-      position: 'top-right',
+      position: 'top-center',
       theme: theme === 'dark' ? 'dark' : 'light',
       autoClose: 3000,
     });
