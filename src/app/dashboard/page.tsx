@@ -79,7 +79,7 @@ export default function DashboardPage() {
       const getData = async () => {
         try {
           const response = await axios.get<ChartData[]>('/api/data'); // Tipando a resposta
-          console.log(response.data);
+          // console.log(response.data);
           setData(response.data); // Armazena os dados recebidos no estado
         } catch (error) {
           console.error('Erro ao obter dados do gráfico:', error);

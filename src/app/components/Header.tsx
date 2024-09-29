@@ -121,8 +121,15 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string }> = (
               </li>
               <li>
                 <Link href="/dashboard">
-                  <button onClick={() => toast.warn('Em desenvolvimento ...', { position: 'top-center',theme: theme === 'dark' ? 'dark' : 'light' })}  className="block px-4 py-2 hover:bg-gray-200 w-full text-left dark:hover:text-black">
+                  <button onClick={() => toast.info('dashboard em desenvolvimento ...', { position: 'top-center',theme: theme === 'dark' ? 'dark' : 'light' })}  className="block px-4 py-2 hover:bg-gray-200 w-full text-left dark:hover:text-black">
                     Dashboard
+                  </button>
+                </Link>
+              </li>
+              <li>
+                <Link href="/dashboard/settings">
+                  <button onClick={() => toast.info('configurações em desenvolvimento ...', { position: 'top-center',theme: theme === 'dark' ? 'dark' : 'light' })}  className="block px-4 py-2 hover:bg-gray-200 w-full text-left dark:hover:text-black">
+                    Configurações	
                   </button>
                 </Link>
               </li>
