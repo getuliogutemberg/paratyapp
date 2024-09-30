@@ -124,5 +124,5 @@ model Platform {
   primaryColor   String?  @default("#e60000") // Definindo a cor padrão
   secondaryColor String? @default("#e60000") // Definindo a cor padrão
   createdAt DateTime @default(now())
-
+  @@map("platform") // Isso garante que o Prisma mapeie corretamente para a tabela "platform"
 }

@@ -19,8 +19,6 @@ interface RenderTabContentProps {
   settings: Settings;
   activeTab: string;
   handleInputChange: (tab: string, key: string, value: string) => void;
-
-
 }
 
 
@@ -36,6 +34,10 @@ const RenderTabContent: React.FC<RenderTabContentProps> = ({ settings, activeTab
       [key]: !prev[key], // Alterna o estado expandido
     }));
   };
+
+  if (!currentSettings || typeof currentSettings !== 'object') {
+    return <div className="text-center text-gray-500">Ocorreu um erro.</div>; // Handle cases where currentSettings is undefined or not an object
+  }
 
   return Object.keys(currentSettings).map((key) => {
     const value = currentSettings[key];
@@ -129,7 +131,7 @@ const SettingsPage: React.FC = () => {
       const response = await fetch('/api/settings'); // API que retorna os dados do banco
   
       // Log para verificar o status da resposta
-      console.log('Response status:', response.status);
+      console.log('Response status:', response);
       const text = await response.text(); // Leia a resposta como texto
       console.log('Response text:', text); // Log o texto da resposta
   
