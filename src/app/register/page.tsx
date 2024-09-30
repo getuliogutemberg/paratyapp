@@ -67,7 +67,7 @@ export default function RegisterPage() {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
     }}>
-     { platformData ? <><h1 className="text-3xl font-bold">Registro</h1>
+     { platformData ? <><h1 className="text-3xl font-bold text-black">Registro</h1>
       <form onSubmit={handleRegister} className="flex flex-col gap-4 w-full max-w-md">
         <input
           type="text"

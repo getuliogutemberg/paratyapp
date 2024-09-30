@@ -6,9 +6,7 @@ const prisma = new PrismaClient();
 
 
 
-const capitalizeFirstLetter = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
+
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const settingsArray = [];
@@ -28,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (tableName === '_prisma_migrations') continue;
 
     // Executa uma query para pegar todos os dados dessa tabela
-    const tableData = await prisma.$queryRawUnsafe(`SELECT * FROM ${capitalizeFirstLetter(tableName)};`);
+    const tableData = await prisma.$queryRawUnsafe(`SELECT * FROM "${tableName}";`);
 
     
 

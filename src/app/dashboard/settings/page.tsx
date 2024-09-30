@@ -133,15 +133,17 @@ const SettingsPage: React.FC = () => {
       // Log para verificar o status da resposta
       console.log('Response status:', response);
       const text = await response.text(); // Leia a resposta como texto
-      console.log('Response text:', text); // Log o texto da resposta
+      console.log('Response text:', JSON.parse(JSON.parse(text).tableName)[0]); // Log o texto da resposta
   
       // Verifique se a resposta é JSON antes de tentar analisá-lo
       if (!response.ok) {
         throw new Error(`Erro: ${response.status} ${response.statusText}`);
       }
   
-      const data = JSON.parse(text); // Tente analisar o texto como JSON
-      setSettings(data);
+      const data = JSON.parse(JSON.parse(text).tableName).length > 1 ?  JSON.parse(JSON.parse(text).tableName).map( (text: string, index: number) => {
+        return JSON.parse(JSON.parse(text).tableName)[index]
+      } ) : {['plataforma']: JSON.parse(JSON.parse(text).tableName)[0]}; // Tente analisar o texto como JSON
+      setSettings(( prevSettings ) => ({ ...prevSettings, ...data })); // Atualize o estado com os dados recebidos
     } catch (error) {
       toast.error('Erro ao carregar configurações. ' + error);
     }
@@ -151,6 +153,10 @@ const SettingsPage: React.FC = () => {
   useEffect(() => {
     loadSettings();
   }, []);
+
+  useEffect(() => {
+    console.log(settings);
+  }, [settings]);
 
   // Função para enviar as mudanças ao backend
   const handleInputChange = async (tab: string, key: string, value: string) => {

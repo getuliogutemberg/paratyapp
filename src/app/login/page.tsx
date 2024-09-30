@@ -71,7 +71,7 @@ export default function LoginPage() {
     >
       {platformData ? (
         <>
-          <h1 className="text-3xl font-bold">Login</h1>
+          <h1 className="text-3xl font-bold text-black">Login</h1>
           <form onSubmit={handleLogin} className="flex flex-col gap-4 w-full max-w-md">
             <input
               type="email"

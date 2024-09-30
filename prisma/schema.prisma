@@ -24,6 +24,7 @@ model User {
   dashboards  Dashboard[] // Relacionamento com os dashboards criados pelo usuário
   pages       Page[]    // Relacionamento com as páginas criadas pelo usuário (a correção necessária)
   createdAt   DateTime  @default(now())
+  @@map("user") // Isso garante que o Prisma mapeie corretamente para a tabela "platform"
 }
 
 // Níveis de Permissão
@@ -31,6 +32,7 @@ enum Role {
   BASIC  // Nível 0 - Acesso básico (Dashboards e Dados Históricos)
   ADMIN  // Nível 1 - Customização do grupo (gráficos, criação de usuários no grupo)
   SUPERADMIN  // Nível 2 - Customização avançada (edição de usuários, sensores, gráficos, telas)
+  @@map("role") // Isso garante que o Prisma mapeie corretamente para a tabela "platform"
 }
 
 // Grupos de usuários
@@ -41,6 +43,7 @@ model Group {
   dashboards Dashboard[] // Dashboards relacionados ao grupo
   sensors   Sensor[] // Sensores relacionados ao grupo
   createdAt DateTime @default(now())
+  @@map("group") // Isso garante que o Prisma mapeie corretamente para a tabela "platform"
 }
 
 // Modelo de Dashboard (Gráficos)
@@ -53,6 +56,7 @@ model Dashboard {
   createdBy   Int        // Criado por qual usuário
   createdByUser User     @relation(fields: [createdBy], references: [id]) // Relacionamento com o usuário que criou
   createdAt   DateTime   @default(now())
+  @@map("dashboard") // Isso garante que o Prisma mapeie corretamente para a tabela "platform"
 }
 
 // Modelo de Gráfico
@@ -63,6 +67,7 @@ model Chart {
   dashboardId Int       // Referência para o Dashboard
   dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
   createdAt   DateTime  @default(now())
+  @@map("chart") // Isso garante que o Prisma mapeie corretamente para a tabela "platform"
 }
 
 // Modelo de Sensor
@@ -74,6 +79,7 @@ model Sensor {
   group       Group     @relation(fields: [groupId], references: [id])
   data        SensorData[] // Relacionamento com os dados coletados pelo sensor
   createdAt   DateTime  @default(now())
+  @@map("sensor") // Isso garante que o Prisma mapeie corretamente para a tabela "platform"
 }
 
 // Dados de sensores
@@ -83,6 +89,7 @@ model SensorData {
   timestamp DateTime  @default(now()) // Data e hora da coleta
   sensorId  Int       // Referência ao sensor
   sensor    Sensor    @relation(fields: [sensorId], references: [id])
+  @@map("sensorData") // Isso garante que o Prisma mapeie corretamente para a tabela "platform"
 }
 
 // Modelo de Página (adicionando o campo de relação)
@@ -98,6 +105,7 @@ model Page {
   createdBy   Int       // Criado por qual usuário
   createdByUser User    @relation(fields: [createdBy], references: [id]) // Relacionamento com o usuário que criou
   createdAt   DateTime  @default(now())
+  @@map("page") // Isso garante que o Prisma mapeie corretamente para a tabela "platform"
 }
 
 // Modelo de Log (Ações da plataforma)
@@ -108,6 +116,7 @@ model Log {
   userId    Int       // ID do usuário que realizou a ação
   user      User      @relation(fields: [userId], references: [id])
   createdAt DateTime  @default(now())
+  @@map("log") // Isso garante que o Prisma mapeie corretamente para a tabela "platform"
 }
 
 // Modelo da Plataforma
