@@ -101,7 +101,7 @@ export default function Home() {
             <div className={`z-[0] flex  ${user && user.name !== ''  ? 'flex-row justify-space-between w-full' :'flex-col' }`}>
               {platformData && <Image
                 onClick={handleThemeChange}
-                className={`cursor-pointer transition duration-1000 ${theme === 'dark' ? 'filter grayscale' : ''} `}
+                className={`cursor-pointer transition duration-1000 ${theme === 'dark' ? 'filter grayscale invert' : ''} `}
                 src={platformData.LogoInit}
                 alt="Logo do App Paraty"
                 width={user ? 100 : 200}
