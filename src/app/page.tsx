@@ -85,7 +85,7 @@ export default function Home() {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    filter: theme === 'dark' ? 'blur(0px) brightness(0.3)' : 'brightness(0.8)', // Aplica blur apenas no tema escuro
+    filter: theme === 'dark' ? 'blur(0px) brightness(0.3)' : 'brightness(1)', // Aplica blur apenas no tema escuro
     transition: 'filter 1s ease, background-image 1s ease', // Adicionando transição
     }} 
     className="absolute w-screen h-screen z-[0]  transition duration-1000" // Ocupa todo o espaço do contêiner
