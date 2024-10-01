@@ -74,7 +74,7 @@ export default function Home() {
   
   return (
     <div
-  className={`relative grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]  ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}
+  className={`relative flex flex-col justify-between h-screen w-screen font-[family-name:var(--font-geist-sans)]  ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}
 >
     <div
     style={{
@@ -92,23 +92,23 @@ export default function Home() {
     /> 
    
       <>
-        <main className={user && user.name !== '' ? " flex justify-space-between flex-row w-full gap-8 row-start-2 sm:row-start-1 items-center" : "flex flex-col gap-8 row-start-2 items-center sm:items-start "}>
+        <main className={user && user.name !== '' ? " flex justify-space-between flex-row w-full  gap-8 row-start-2 sm:row-start-1 items-center" : "flex flex-col gap-8  row-start-2 items-center sm:items-start my-auto "}>
           {loading ? (
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center h-full w-full">
               <ClipLoader size={50} color={theme === 'dark' ? '#fff' : '#000'} loading={loading} />
             </div>
           ) : (
-            <div className={`z-[0] flex  ${user && user.name !== ''  ? 'flex-row justify-space-between w-full' :'flex-col' }`}>
+            <div className={`z-[0] flex min-w-[400px]  w-full  gap-8 items-center ${user && user.name !== ''  ? 'flex-row justify-space-betweenw-full backdrop-blur-[2px] backdrop-brightness-95 p-4 rounded-lg ' :'flex-col max-w-[600px] xl:ml-[200px] mr-auto w-full backdrop-blur-[2px] backdrop-brightness-95 p-4 rounded-lg p-8' }`}>
               {platformData && <Image
                 onClick={handleThemeChange}
-                className={`cursor-pointer transition duration-1000 ${theme === 'dark' ? 'filter grayscale invert' : ''} `}
+                className={` cursor-pointer transition duration-1000 ${theme === 'dark' ? 'filter grayscale invert' : ''} `}
                 src={platformData.LogoInit}
                 alt="Logo do App Paraty"
                 width={user ? 100 : 200}
                 height={user ? 100 : 200}
                 priority
               />}
-              <h1 className={` text-3xl font-bold flex flex-grow text-center justify-center items-center transition duration-1000  ${theme === 'dark' ? 'text-gray-300' : 'text-gray-50'} `}>{user && user.name !== ''  ? `Bem-vindo ${user.name}!` : platformData ? platformData.TitleInit  : ' '  }</h1>
+              <h1 className={` text-3xl font-bold flex flex-grow text-center justify-center items-center transition duration-1000  ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} `}>{user && user.name !== ''  ? `Bem-vindo ${user.name}!` : platformData ? platformData.TitleInit  : ' '  }</h1>
               {user && user.name !== '' && (
                 <div className="flex gap-4 items-center flex-col sm:flex-row">
                   <Link href='/dashboard'>
@@ -150,8 +150,9 @@ export default function Home() {
           )}
           
         </main>
-        <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center z-[0]">
-          <Link href="/about" className={`flex items-center gap-2 hover:underline hover:underline-offset-4   ${theme === 'dark' ? 'text-gray-300' : 'text-gray-50'}`}>
+      </>
+        <footer className="row-start-3 w-full flex gap-6 flex-wrap items-center justify-center z-[0]">
+          <Link href="/about" className={`flex items-center gap-2 hover:underline hover:underline-offset-4   ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
             <Image
               className={theme === 'dark' ? '' :'filter invert' }
               aria-hidden
@@ -162,7 +163,7 @@ export default function Home() {
             />
             Sobre o Aplicativo
           </Link>
-          <Link href="/contact" className={`flex items-center gap-2 hover:underline hover:underline-offset-4   ${theme === 'dark' ? 'text-gray-300' : 'text-gray-50'}`}>
+          <Link href="/contact" className={`flex items-center gap-2 hover:underline hover:underline-offset-4   ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
             <Image
               className={theme === 'dark' ? '' :'filter invert' }
               aria-hidden
@@ -174,7 +175,6 @@ export default function Home() {
             Contato
           </Link>
         </footer>
-      </>
     </div>
   );
 }
