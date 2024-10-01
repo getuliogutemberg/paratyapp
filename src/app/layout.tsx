@@ -46,9 +46,9 @@ export default function RootLayout({
         {/* {pathname === "/dashboard" && <Header/>} */}
         <main className="flex-grow">
           {children}
+           <ToastContainer />
 
         </main>
-        <ToastContainer />
       </body>
     </html>
   );

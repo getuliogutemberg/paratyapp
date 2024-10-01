@@ -92,7 +92,7 @@ export default function Home() {
     /> 
    
       <>
-        <main className={user && user.name !== '' ? " flex justify-space-between flex-row w-full  gap-8 row-start-2 sm:row-start-1 items-center" : "flex flex-col gap-8  row-start-2 items-center sm:items-start my-auto "}>
+        <div className={user && user.name !== '' ? " flex justify-space-between flex-row w-full  gap-8 row-start-2 sm:row-start-1 items-center" : "flex flex-col gap-8  row-start-2 items-center sm:items-start my-auto "}>
           {loading ? (
             <div className="flex justify-center items-center h-full w-full">
               <ClipLoader size={50} color={theme === 'dark' ? '#fff' : '#000'} loading={loading} />
@@ -149,7 +149,7 @@ export default function Home() {
             
           )}
           
-        </main>
+        </div>
       </>
         <footer className="row-start-3 w-full flex gap-6 flex-wrap items-center justify-center z-[0]">
           <Link href="/about" className={`flex items-center gap-2 hover:underline hover:underline-offset-4   ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>

@@ -60,7 +60,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div
+    <main
       className={`flex flex-col ${platformData ? 'items-start' : ' items-center'} justify-center min-h-screen p-8 gap-8 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}
       style={{
         backgroundImage: platformData ? `url(${platformData.Background})` : 'none',
@@ -73,7 +73,7 @@ export default function LoginPage() {
       }}
     >
       {platformData ? (
-        <main className="flex flex-col items-center justify-center gap-8 min-w-[400px] max-w-[600px] xl:ml-[200px] mr-auto w-full backdrop-blur-[2px] backdrop-brightness-95 p-4 rounded-lg p-8">
+        <div className="flex flex-col items-center justify-center gap-8 min-w-[400px] max-w-[600px] xl:ml-[200px] mr-auto w-full backdrop-blur-[2px] backdrop-brightness-95 p-4 rounded-lg p-8">
           <h1 className="text-3xl font-bold text-black  ">Login</h1>
           <form onSubmit={handleLogin} className="flex flex-col gap-4 w-full max-w-md">
             <input
@@ -112,12 +112,12 @@ export default function LoginPage() {
           </div>
 
           <ToastContainer />
-        </main>
+        </div>
       ) : (
         <div className="flex justify-center items-center">
           <ClipLoader size={50} color={theme === 'dark' ? '#fff' : '#000'} loading={!platformData} />
         </div>
       )}
-    </div>
+    </main>
   );
 }
