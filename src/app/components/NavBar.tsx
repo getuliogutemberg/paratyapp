@@ -1,6 +1,6 @@
 // components/Header.tsx
 'use client';
-import {  useEffect, useState } from 'react';
+import {  useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
@@ -9,8 +9,8 @@ import { toast } from 'react-toastify';
 
 
 const NavBar: React.FC<{ setNavBar: (open: boolean) => void; navBar: boolean; setTheme: (theme: string) => void;theme: string }> = ({ setNavBar, navBar, setTheme,theme }) => {
-  const [user, setUser] = useState<{ name: string } | null>(null);
-  const [platform, setPlatform] = useState<{ name: string; logo: string } | null>(null);
+//   const [user, setUser] = useState<{ name: string } | null>(null);
+//   const [platform, setPlatform] = useState<{ name: string; logo: string } | null>(null);
   const router = useRouter();
   // const pathname = usePathname();
 
@@ -41,7 +41,7 @@ const NavBar: React.FC<{ setNavBar: (open: boolean) => void; navBar: boolean; se
       (async () => {
         const userData = await getUser();
         if (userData) {
-          setUser(userData);
+        //   setUser(userData);
         }
       })();
     }
@@ -50,8 +50,8 @@ const NavBar: React.FC<{ setNavBar: (open: boolean) => void; navBar: boolean; se
   useEffect(() => {
     const getPlatform = async () => {
       try {
-        const response = await axios.get<{ name: string; logo: string } | null>('/api/platform');
-        setPlatform(response.data);
+        // const response = await axios.get<{ name: string; logo: string } | null>('/api/platform');
+        // setPlatform(response.data);
       } catch (error) {
         console.error('Erro ao obter dados da plataforma:', error);
       }
