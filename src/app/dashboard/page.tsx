@@ -3,23 +3,26 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Header from '../components/Header';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,PieChart, Pie, Cell  } from 'recharts';
+import NavBar from '../components/NavBar';
+
+// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,PieChart, Pie, Cell  } from 'recharts';
 import { ClipLoader } from 'react-spinners';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 // Definindo a interface para os dados do gráfico
-interface ChartData {
-  name: string;
-  value: number;
-}
+// interface ChartData {
+//   name: string;
+//   value: number;
+// }
 
 export default function DashboardPage() {
   const [user, setUser] = useState<{ name: string } | null>(null);
   
-  const [data, setData] = useState<ChartData[]>([]); // Usando a interface para tipar o estado dos dados
+  // const [data, setData] = useState<ChartData[]>([]); // Usando a interface para tipar o estado dos dados
   const router = useRouter();
 
   const [theme, setTheme] = useState<string>('dark');
+  const [navBar, setNavBar] = useState<boolean>(false);
  
 
   // Função que atualiza o tema
@@ -50,7 +53,7 @@ export default function DashboardPage() {
   // };
 
  // Define a classe do cabeçalho com base no tema
- const dashboardClass = theme === 'dark' ? 'dashboard-dark' : 'dashboard-light';
+//  const dashboardClass = theme === 'dark' ? 'dashboard-dark' : 'dashboard-light';
 
 
 
@@ -78,9 +81,9 @@ export default function DashboardPage() {
 
       const getData = async () => {
         try {
-          const response = await axios.get<ChartData[]>('/api/data'); // Tipando a resposta
+          // const response = await axios.get<ChartData[]>('/api/data'); // Tipando a resposta
           // console.log(response.data);
-          setData(response.data); // Armazena os dados recebidos no estado
+          // setData(response.data); // Armazena os dados recebidos no estado
         } catch (error) {
           console.error('Erro ao obter dados do gráfico:', error);
         }
@@ -102,27 +105,30 @@ export default function DashboardPage() {
   </div>;
   }
 
-  const value = Math.floor(Math.random() * 1000);
-  const maxValue = 1000;
+  // const value = Math.floor(Math.random() * 1000);
+  // const maxValue = 1000;
   
-  const percentage = (value / maxValue) * 100;
-  const datapie = [
-    { value: percentage }, // Porcentagem preenchida
-    { value: 100 - percentage }, // Porcentagem vazia
-  ];
+  // const percentage = (value / maxValue) * 100;
+  // const datapie = [
+  //   { value: percentage }, // Porcentagem preenchida
+  //   { value: 100 - percentage }, // Porcentagem vazia
+  // ];
 
-  const colors = ['#00C49F', '#E0E0E0']; // Cores: preenchido e vazio
+  // const colors = ['#00C49F', '#E0E0E0']; // Cores: preenchido e vazio
 
   
   return (
   <>
-    <Header setTheme={setTheme} theme={theme}/>
-  <div onClick={() => toast.warn('Em desenvolvimento ...', { position: 'top-center', theme: theme === 'dark' ? 'dark' : 'light' })}  className={` ${dashboardClass} absolute w-screen h-screen z-[-1] px-4`}>
-    <h1 className={`text-3xl font-bold pt-20 text-start`}>Bem-vindo, {user.name}</h1>
-    <div >
-      <p className="text-md mb-4">Este é o seu dashboard.</p>
-      <div className="flex flex-row flex-wrap justify-center gap-4">
-      {/* Gráfico de linha */}
+    <Header setTheme={setTheme} theme={theme} setNavBar={setNavBar} navBar={navBar}/>
+    <NavBar setNavBar={setNavBar} navBar={navBar} setTheme={setTheme} theme={theme} />
+    <iframe title="dasboard" className='w-full h-[calc(100vh-0px)]' src="https://app.powerbi.com/reportEmbed?reportId=a5df5d2a-15bb-4f5f-acd3-75e62e33389d&autoAuth=true&embeddedDemo=true" allowFullScreen={true}></iframe>
+
+  {/* <div onClick={() => toast.warn('Em desenvolvimento ...', { position: 'top-center', theme: theme === 'dark' ? 'dark' : 'light' })}  className={` ${dashboardClass} absolute w-screen h-screen z-[-1] px-4`}>
+    <h1 className={`text-3xl font-bold pt-20 text-start hidden`}>Bem-vindo, {user.name}</h1>
+    <div className="flex flex-col items-center justify-center" >
+      <p className="text-md mb-4 hidden">Este é o seu dashboard.</p>
+      <div  className="flex flex-row flex-wrap justify-center gap-4 hidden">
+     
 
       <div className='flex flex-col items-center justify-center'>
       <PieChart width={200} height={220}>
@@ -139,7 +145,7 @@ export default function DashboardPage() {
           ))}
         </Pie>
       </PieChart>
-      <h2 className='absolute text-center text-xl font-bold text-gray-600 trnasform -translate-x-[0px] -translate-y-[-20px]'>{value} / {maxValue}</h2> {/* Valor no centro */}
+      <h2 className='absolute text-center text-xl font-bold text-gray-600 trnasform -translate-x-[0px] -translate-y-[-20px]'>{value} / {maxValue}</h2>
     </div>
       
       <LineChart
@@ -160,7 +166,7 @@ export default function DashboardPage() {
       </LineChart>
       
 
-       {/* Gráfico de linha */}
+       
        <LineChart
         width={600}
         height={250}
@@ -176,7 +182,6 @@ export default function DashboardPage() {
       </LineChart>
 
 
- {/* Gráfico de linha */}
  <LineChart
         width={600}
         height={250}
@@ -192,7 +197,7 @@ export default function DashboardPage() {
       </LineChart>
 
 
- {/* Gráfico de linha */}
+ 
  <LineChart
         width={600}
         height={250}
@@ -208,7 +213,7 @@ export default function DashboardPage() {
       </LineChart>
 
 
- {/* Gráfico de linha */}
+
  <LineChart
         width={600}
         height={250}
@@ -224,8 +229,8 @@ export default function DashboardPage() {
       </LineChart>
 
     </div>
-   
-    </div></div>
+    </div>
+    </div> */}
     </>
   );
 }

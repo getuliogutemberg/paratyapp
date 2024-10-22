@@ -67,7 +67,7 @@ export default function RegisterPage() {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
     }}>
-     { platformData ? <main className="flex flex-col items-center justify-center gap-8 min-w-[400px] max-w-[600px] xl:ml-[200px] mr-auto w-full backdrop-blur-[2px] backdrop-brightness-95 p-4 rounded-lg p-8"><h1 className="text-3xl font-bold text-black">Registro</h1>
+     { platformData ? <main className="flex flex-col items-center justify-center gap-8 min-w-[400px] max-w-[600px] xl:ml-[200px] mr-auto w-full backdrop-blur-[2px] backdrop-brightness-95 p-4 rounded-lg p-8"><h1 className="text-3xl font-bold text-[#101C44]">Registro</h1>
       <form onSubmit={handleRegister} className="flex flex-col gap-4 w-full max-w-md">
         <input
           type="text"
@@ -93,20 +93,20 @@ export default function RegisterPage() {
           required
           className="border border-gray-300 p-2 rounded dark:text-black"
         />
-        <button type="submit" className="rounded-full border border-transparent bg-foreground text-background h-10 px-4 hover:bg-[#f2f2f2] hover:text-white dark:hover:bg-[#1a1a1a] text-sm sm:text-base">
+        <button type="submit" className="rounded-full border border-transparent bg-[#101C44] text-[#FFFFFF] h-10 px-4 hover:bg-[#101C44] hover:text-white dark:hover:bg-[#101C44] text-sm sm:text-base">
           Registrar
         </button>
       </form>
 
       {/* Links para outras páginas */}
       <div className="flex gap-4 flex-col sm:flex-row">
-        <Link href="/login">
+        {/* <Link href="/login">
           <button className="rounded-full border border-transparent bg-foreground text-background h-10 px-4 hover:bg-[#f2f2f2] hover:text-white dark:hover:bg-[#1a1a1a] text-sm sm:text-base">
             Já tem uma conta? Faça Login
           </button>
-        </Link>
+        </Link> */}
         <Link href="/">
-          <button className="rounded-full border border-transparent bg-foreground text-background h-10 px-4 hover:bg-[#f2f2f2] hover:text-white dark:hover:bg-[#1a1a1a] text-sm sm:text-base">
+          <button className="rounded-full border border-transparent bg-[#101C44] text-[#FFFFFF] h-10 px-4 hover:bg-[#101C44] hover:text-white dark:hover:bg-[#101C44] text-sm sm:text-base">
             Voltar para a Página Inicial
           </button>
         </Link>
