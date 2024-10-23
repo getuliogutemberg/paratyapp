@@ -15,7 +15,7 @@ import { ClipLoader } from 'react-spinners';
 //   value: number;
 // }
 
-export default function DashboardPage() {
+export default function RecommendationsPage() {
   const [user, setUser] = useState<{ name: string } | null>(null);
   
   // const [data, setData] = useState<ChartData[]>([]); // Usando a interface para tipar o estado dos dados
@@ -45,16 +45,6 @@ export default function DashboardPage() {
       window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
-
-  // const handleThemeChange = () => {
-  //   localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
-  //   setTheme(theme === 'dark' ? 'light' : 'dark');
-    
-  // };
-
- // Define a classe do cabeçalho com base no tema
-//  const dashboardClass = theme === 'dark' ? 'dashboard-dark' : 'dashboard-light';
-
 
 
   useEffect(() => {
@@ -105,25 +95,17 @@ export default function DashboardPage() {
   </div>;
   }
 
-  // const value = Math.floor(Math.random() * 1000);
-  // const maxValue = 1000;
-  
-  // const percentage = (value / maxValue) * 100;
-  // const datapie = [
-  //   { value: percentage }, // Porcentagem preenchida
-  //   { value: 100 - percentage }, // Porcentagem vazia
-  // ];
-
-  // const colors = ['#00C49F', '#E0E0E0']; // Cores: preenchido e vazio
+ 
 
   
   return (
   <>
     <Header setTheme={setTheme} theme={theme} setNavBar={setNavBar} navBar={navBar}/>
     <NavBar setNavBar={setNavBar} navBar={navBar} setTheme={setTheme} theme={theme} />
-    <iframe title="dasboard" className='w-full h-[calc(100vh-0px)]' src="https://app.powerbi.com/reportEmbed?reportId=a5df5d2a-15bb-4f5f-acd3-75e62e33389d&autoAuth=true&embeddedDemo=true" allowFullScreen={true}></iframe>
+    <div className='w-full h-[calc(100vh-0px)] bg-gray-300' >
+        
+    </div>
 
-  </>
+    </>
   );
 }
-

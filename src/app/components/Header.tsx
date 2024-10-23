@@ -1,18 +1,19 @@
 // components/Header.tsx
 'use client';
-import {  useEffect, useState } from 'react';
-
-import { useRouter } from 'next/navigation';
+import {  useCallback, useEffect, useState } from 'react';
+import Hamburger from 'hamburger-react'
+import { usePathname, useRouter } from 'next/navigation';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
+import { FaRegUser } from "react-icons/fa6";
+import { FiUpload } from "react-icons/fi";
 
 const Header: React.FC<{ setTheme: (theme: string) => void; theme: string ;setNavBar: (open: boolean) => void; navBar: boolean}> = ({ setTheme, theme, setNavBar, navBar }) => {
   const [user, setUser] = useState<{ name: string } | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [platform, setPlatform] = useState<{ name: string; logo: string } | null>(null);
   const router = useRouter();
-  // const pathname = usePathname();
+  const pathname = usePathname();
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
@@ -22,7 +23,7 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string ;setNa
   }, [setTheme]);
 
   const handleLogout = () => {
-    toast.info('Deslogando...', {
+    toast.info('Desconectando...', {
       position: 'top-center',
       theme: theme === 'dark' ? 'dark' : 'light',
       autoClose: 3000,
@@ -86,8 +87,22 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string ;setNa
     
   // };
 
+  const getTitle = useCallback((rota: string | null) => {
+    switch (rota) {
+      case '/dashboard':
+        return 'Indicadores';
+      case '/recommendations':
+        return 'Recomendações';
+      case '/setup':
+        return 'Configurações';
+      default:
+        return platform?.name;
+    }
+    
+  }, [platform]);
+
   return (
-    <header className={`${theme === 'dark' ? 'bg-[#00669d] text-[#F3F3F3]' : 'bg-black text-[#F3F3F3]'} flex items-center justify-between p-4 bg-[#3183CF] absolute top-0 left-0 right-0 z-10 `}>
+    <header className={`${theme === 'light' ? 'bg-[#00669d] text-[#F3F3F3]' : 'bg-black text-[#F3F3F3]'} flex items-center justify-between py-2 pl-[2px] pr-[10px] bg-[#3183CF] absolute top-0 left-0 right-0 z-10 `}>
       {/* <Link href="/" className="flex items-center">
         {platform ? (
           <>
@@ -104,27 +119,32 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string ;setNa
         </>
         )}
       </Link> */}
-      <button onClick={() => setNavBar(!navBar)} className="flex items-center">
+      <div className="flex items-center">
+      <button onClick={() => setNavBar(!navBar)} className="flex items-center focus:outline-none">
+        <Hamburger size={20}  toggled={navBar}  />
+      </button>
         {platform ? (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             {/* <img src={platform.logo} alt="Logo" className="object-contain w-9 h-9 m-0 p-0" /> */}
             {/* <h1 className="text-xl font-bold ml-2">{platform.name}</h1> */}
-            <h1 className="text-xl font-bold ml-8">Indicadores</h1>
+            <h1 className="text-xl font-bold ml-2">{getTitle(pathname)}</h1>
           </>
         ) : (
           <>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           {/* <div className="object-contain w-9 h-9 m-0 p-0 bg-gray-500" /> */}
-          <h1 className="text-xl font-bold ml-8">Carregando...</h1>
+          <h1 className="text-xl font-bold ml-2">Carregando...</h1>
         </>
         )}
-      </button>
-
+      </div>
+      <div className="flex items-center gap-4">
+        <FiUpload title='Upload' color={theme === 'dark' ? '#F3F3F3' : "#101C44"} className="w-6 h-6" />
       <div className="relative">
-        <button onClick={toggleDropdown} className="flex items-center focus:outline-none">
-          <span>{isDropdownOpen ? 'Fechar' : user ? user.name : 'Menu' }</span>
-          <svg className={`ml-2 w-4 h-4 ${!isDropdownOpen ? 'rotate-180' : ''} `} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+        <button onClick={toggleDropdown} className="flex items-center focus:outline-none transition duration-300 ">
+          <span title={user?.name}>{isDropdownOpen ? <FaRegUser color={theme === 'dark' ? '#F3F3F3' : "#101C44"} className="w-5 h-5" /> : <FaRegUser color={theme === 'dark' ? '#F3F3F3' : "#101C44"} className="w-5 h-5" /> }</span>
+          <svg className={`ml-2 w-4 h-4 transition duration-300  ${!isDropdownOpen ? 'rotate-180' : ''} `} fill="none" stroke={theme === 'dark' ? '#F3F3F3' : "#101C44"} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
           </svg>
         </button>
@@ -151,6 +171,13 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string ;setNa
                   </button>
                 </Link>
               </li> */}
+
+             
+              {/* <li>
+                <span onClick={handleLogout} className="block px-4 py-2  w-full text-left">
+                {user && user.name }
+                </span>
+              </li> */}
               <li>
                 <button onClick={handleLogout} className="block px-4 py-2 hover:bg-red-500 hover:text-white w-full text-left">
                   Sair
@@ -160,6 +187,9 @@ const Header: React.FC<{ setTheme: (theme: string) => void; theme: string ;setNa
           </div>
         )}
       </div>
+
+      </div>
+
     </header>
   );
 };
