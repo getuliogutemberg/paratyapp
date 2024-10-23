@@ -119,7 +119,7 @@ const NavBar: React.FC<{ setNavBar: (open: boolean) => void; navBar: boolean; se
       {theme === 'dark' ? (
         // Sol
         <div className="relative w-full h-full bg-[#F3F3F3] rounded-full flex justify-center items-center transition-all duration-500 ease-in-out">
-          <div className="absolute w-full h-full bg-yellow-200 animate-pulse rounded-full"></div>
+          <div className="absolute w-full h-full bg-yellow-400 animate-pulse rounded-full"></div>
         </div>
       ) : (
         // Lua
