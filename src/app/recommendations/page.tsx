@@ -53,7 +53,7 @@ export default function RecommendationsPage() {
     const token = localStorage.getItem('token');
   
     if (!token) {
-      router.push('/login');
+      router.push('/');
     } else {
       const getUser = async () => {
         try {
