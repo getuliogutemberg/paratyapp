@@ -102,7 +102,7 @@ export default function LoginPage() {
               className="border border-gray-300 p-2 rounded dark:text-black"
             />
             </div>
-            <Link href="/register">
+            <Link href="/">
               <span className="text-[#101C44] hover:underline text-sm">
                   Esqueci minha senha
               </span>
