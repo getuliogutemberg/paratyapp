@@ -72,7 +72,7 @@ const NavBar: React.FC<{ setNavBar: (open: boolean) => void; navBar: boolean; se
   };
 
   return (
-    <nav className={`${theme === 'light' ? 'bg-[#00669d] text-[#F3F3F3]' : 'bg-black text-[#F3F3F3]'} flex pt-[65px] items-start   bg-[#3183CF] absolute h-full ${navBar ? 'w-[250px] justify-between' : 'w-[50px] justify-between'} transition-all duration-300 ease-in-out z-[0]`}>
+    <nav className={`${theme === 'light' ? 'bg-[#00669d] text-[#F3F3F3]' : 'bg-black text-[#F3F3F3]'} flex pt-[65px] items-start   bg-[#3183CF] absolute h-full ${navBar ? 'w-[250px] justify-between' : 'w-[50px] justify-between'} transition-all duration-300 ease-in-out z-[5]`}>
      
       <ul className=" flex flex-col gap-2 justify-between h-full" onClick={() => setNavBar(false)}>
             {/* {platform && navBar && platform.name} */}
