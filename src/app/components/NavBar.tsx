@@ -10,7 +10,8 @@ import { usePathname } from 'next/navigation';
 
 
 const NavBar: React.FC<{ setNavBar: (open: boolean) => void; navBar: boolean; setTheme: (theme: string) => void;theme: string }> = ({ setNavBar, navBar, setTheme,theme }) => {
-
+  
+  // const [platform, setPlatform] = useState<{ name: string; logo: string } | null>(null);
   // const router = useRouter();
   const pathname = usePathname();
 
@@ -50,7 +51,8 @@ const NavBar: React.FC<{ setNavBar: (open: boolean) => void; navBar: boolean; se
   useEffect(() => {
     const getPlatform = async () => {
       try {
-        // const response = await axios.get<{ name: string; logo: string } | null>('/api/platform');
+        const response = await axios.get<{ name: string; logo: string } | null>('/api/platform');
+        console.log(response.data);
         // setPlatform(response.data);
       } catch (error) {
         console.error('Erro ao obter dados da plataforma:', error);
@@ -135,7 +137,7 @@ const NavBar: React.FC<{ setNavBar: (open: boolean) => void; navBar: boolean; se
 </li>
               </div>
 
-
+             
               
               {/* <li>
                 <Link href="/dashboard/settings">

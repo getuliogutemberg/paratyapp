@@ -100,8 +100,8 @@ export default function DashboardPage() {
   }, [router]);
 
   if (!user) {
-    return <div className={`absolute w-screen h-screen z-[0] flex justify-center items-center ${theme === 'dark' ? 'bg-black' : 'bg-gray-200'} `}>
-    <ClipLoader size={50} color={theme === 'dark' ? '#fff' : '#000'} loading={!user} />
+    return <div className={`absolute w-screen h-screen z-[0] flex justify-center items-center ${theme === 'dark' ? 'bg-black' : 'bg-[#101C44]'} `}>
+    <ClipLoader size={50} color={theme === 'dark' ? '#fff' : '#fff'} loading={!user} />
   </div>;
   }
 

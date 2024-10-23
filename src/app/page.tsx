@@ -129,8 +129,9 @@ export default function LoginPage() {
 
         </div>
       ) : (
-        <div className="flex justify-center items-center">
-          <ClipLoader size={50} color={theme === 'dark' ? '#fff' : '#000'} loading={!platformData} />
+        <div className={`absolute w-screen h-screen z-[0] flex justify-center items-center ${theme === 'dark' ? 'bg-black' : 'bg-[#101C44]'} `}>
+   
+          <ClipLoader size={50} color={theme === 'dark' ? '#fff' : '#fff'} loading={!platformData} />
         </div>
       )}
     </main>
